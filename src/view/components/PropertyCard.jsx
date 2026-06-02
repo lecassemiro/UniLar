@@ -4,157 +4,148 @@
 // SEM lógica de negócio
 // ============================================================
 
-import { useApp } from "../../context/AppContext";
-import { openListingModal, toggleFavorite } from "../../controller/ListingController";
+import { useApp } from "../../context/AppContext"
+import {
+  openListingModal,
+  toggleFavorite,
+} from "../../controller/ListingController"
+import {
+  Heart,
+  MapPin,
+  BedDouble,
+  Bath,
+  Ruler,
+  ArrowRight,
+  Sparkles,
+  House,
+  Building2,
+  Home,
+} from "lucide-react"
 
 const BADGE_STYLES = {
-  hot: { bg: "#ef4444", label: "🔥 Em alta" },
-  new: { bg: "#22c55e", label: "✨ Novo" },
-};
+  hot: { label: "Em alta" },
+  new: { label: "Novo" },
+}
 
-const TYPE_COLORS = {
-  kitnet: "#534AB7",
-  quarto: "#378ADD",
-  apartamento: "#8b5cf6",
-  casa: "#06b6d4",
-};
+const TYPE_ICONS = {
+  kitnet: House,
+  quarto: BedDouble,
+  apartamento: Building2,
+  casa: Home,
+}
+
+const TYPE_ACCENTS = {
+  kitnet: "from-sky-50 to-sky-100",
+  quarto: "from-blue-50 to-blue-100",
+  apartamento: "from-indigo-50 to-indigo-100",
+  casa: "from-cyan-50 to-cyan-100",
+}
 
 export default function PropertyCard({ listing }) {
   if (!listing) {
-    console.warn("PropertyCard recebeu listing undefined");
-    return null;
+    console.warn("PropertyCard recebeu listing undefined")
+    return null
   }
-  const { state, dispatch } = useApp();
-  const isFav = state.favorites.includes(listing.id);
+
+  const { state, dispatch } = useApp()
+  const isFav = state.favorites.includes(listing.id)
+  const TypeIcon = TYPE_ICONS[listing.type] || House
+  const badge = BADGE_STYLES[listing.badge]
 
   const handleFavorite = (e) => {
-    e.stopPropagation();
-    toggleFavorite(dispatch, listing.id, isFav, listing.title);
-  };
+    e.stopPropagation()
+    toggleFavorite(dispatch, listing.id, isFav, listing.title)
+  }
 
   const handleOpen = () => {
-    openListingModal(dispatch, listing);
-  };
-
-  const badge = BADGE_STYLES[listing.badge];
-  const typeColor = TYPE_COLORS[listing.type] || "#534AB7";
+    openListingModal(dispatch, listing)
+  }
 
   return (
     <div
       onClick={handleOpen}
-      className="relative bg-white rounded-2xl overflow-hidden cursor-pointer group"
-      style={{
-        boxShadow: "0 2px 12px rgba(83,74,183,0.08)",
-        transition: "transform 0.25s ease, box-shadow 0.25s ease",
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.transform = "translateY(-4px)";
-        e.currentTarget.style.boxShadow = "0 12px 32px rgba(83,74,183,0.18)";
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = "translateY(0)";
-        e.currentTarget.style.boxShadow = "0 2px 12px rgba(83,74,183,0.08)";
-      }}
+      className="card-hover section-card overflow-hidden cursor-pointer"
     >
-      {/* Image placeholder with gradient */}
       <div
-        className="relative h-44 flex items-center justify-center text-6xl"
-        style={{
-          background: `linear-gradient(135deg, ${typeColor}22, ${typeColor}44)`,
-        }}
+        className={`relative flex h-44 items-center justify-center bg-gradient-to-br ${TYPE_ACCENTS[listing.type] || "from-sky-50 to-sky-100"}`}
       >
-        <span className="drop-shadow-sm" style={{ filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.15))" }}>
-          {listing.emoji}
-        </span>
+        <div className="flex h-20 w-20 items-center justify-center rounded-[1.5rem] border border-white/70 bg-white/90 text-sky-700 shadow-sm">
+          <TypeIcon size={34} strokeWidth={1.8} />
+        </div>
 
-        {/* Badge */}
         {badge && (
-          <span
-            className="absolute top-3 left-3 text-white text-xs font-semibold px-2.5 py-1 rounded-full"
-            style={{ background: badge.bg, fontFamily: "'DM Sans', sans-serif" }}
-          >
+          <span className="absolute left-3 top-3 pill px-3 py-1 text-xs font-semibold text-slate-700">
+            <Sparkles size={12} className="text-sky-600" />
             {badge.label}
           </span>
         )}
 
-        {/* Favorite button */}
         <button
           onClick={handleFavorite}
-          className="absolute top-3 right-3 w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 shadow-md"
-          style={{
-            background: isFav ? "#ef4444" : "rgba(255,255,255,0.9)",
-            transform: isFav ? "scale(1.1)" : "scale(1)",
-          }}
-          aria-label={isFav ? "Remover dos favoritos" : "Adicionar aos favoritos"}
+          className="absolute right-3 top-3 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/60 bg-white/90 text-slate-700 shadow-sm transition-all hover:scale-105"
+          aria-label={
+            isFav ? "Remover dos favoritos" : "Adicionar aos favoritos"
+          }
         >
-          <span className="text-base leading-none">{isFav ? "❤️" : "🤍"}</span>
+          <Heart
+            size={16}
+            className={isFav ? "fill-rose-500 text-rose-500" : "text-slate-500"}
+          />
         </button>
 
-        {/* Type chip */}
-        <span
-          className="absolute bottom-3 left-3 text-white text-xs font-medium px-2.5 py-1 rounded-lg capitalize"
-          style={{ background: typeColor, fontFamily: "'DM Sans', sans-serif" }}
-        >
+        <span className="absolute bottom-3 left-3 pill bg-white/90 px-3 py-1 text-xs font-semibold capitalize text-slate-700">
           {listing.type}
         </span>
       </div>
 
-      {/* Content */}
-      <div className="p-4">
-        <div className="flex items-start justify-between gap-2 mb-1">
-          <h3
-            className="font-bold text-sm leading-snug line-clamp-2 flex-1"
-            style={{ fontFamily: "'Syne', sans-serif", color: "#26215C" }}
-          >
+      <div className="space-y-4 p-5">
+        <div className="space-y-2">
+          <h3 className="font-display line-clamp-2 text-lg font-bold text-slate-950">
             {listing.title}
           </h3>
+          <p className="flex items-center gap-1.5 text-sm text-slate-500">
+            <MapPin size={14} className="text-sky-600" />
+            {listing.neighborhood}, {listing.city}
+          </p>
         </div>
 
-        <p
-          className="text-xs text-gray-500 mb-3 flex items-center gap-1"
-          style={{ fontFamily: "'DM Sans', sans-serif" }}
-        >
-          📍 {listing.neighborhood}, {listing.city}
-        </p>
-
-        {/* Stats row */}
-        <div
-          className="flex items-center gap-3 mb-3 text-xs text-gray-500"
-          style={{ fontFamily: "'DM Sans', sans-serif" }}
-        >
-          <span>🛏 {listing.rooms} qto{listing.rooms > 1 ? "s" : ""}</span>
-          <span>🚿 {listing.baths} ban.</span>
-          <span>📐 {listing.area}m²</span>
+        <div className="flex flex-wrap items-center gap-3 text-sm text-slate-500">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-50 px-3 py-1.5">
+            <BedDouble size={14} className="text-sky-600" />
+            {listing.rooms} qto{listing.rooms > 1 ? "s" : ""}
+          </span>
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-50 px-3 py-1.5">
+            <Bath size={14} className="text-sky-600" />
+            {listing.baths} banho
+          </span>
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-50 px-3 py-1.5">
+            <Ruler size={14} className="text-sky-600" />
+            {listing.area}m²
+          </span>
         </div>
 
-        {/* Price */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-end justify-between gap-3 border-t border-slate-200/70 pt-4">
           <div>
-            <span
-              className="text-lg font-extrabold"
-              style={{ fontFamily: "'Syne', sans-serif", color: "#534AB7" }}
-            >
-              R${listing.price.toLocaleString("pt-BR")}
-            </span>
-            <span
-              className="text-xs text-gray-400 ml-1"
-              style={{ fontFamily: "'DM Sans', sans-serif" }}
-            >
-              /mês
-            </span>
+            <p className="text-xs font-medium uppercase tracking-[0.18em] text-slate-500">
+              Valor mensal
+            </p>
+            <div className="mt-1 font-display text-2xl font-bold text-slate-950">
+              R$ {listing.price.toLocaleString("pt-BR")}
+              <span className="ml-1 text-sm font-medium text-slate-500">
+                /mês
+              </span>
+            </div>
           </div>
+
           <button
-            className="text-xs font-medium px-3 py-1.5 rounded-xl transition-all duration-200 text-white"
-            style={{
-              background: "linear-gradient(135deg, #534AB7, #378ADD)",
-              fontFamily: "'DM Sans', sans-serif",
-            }}
+            className="button-secondary px-4 py-2 text-sm"
             onClick={handleOpen}
           >
             Ver mais
+            <ArrowRight size={15} />
           </button>
         </div>
       </div>
     </div>
-  );
+  )
 }

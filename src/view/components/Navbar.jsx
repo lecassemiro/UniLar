@@ -4,137 +4,106 @@
 // SEM lógica de negócio
 // ============================================================
 
-import { useState } from "react";
-import { useApp } from "../../context/AppContext";
-import { navigateTo, NAV_ITEMS, PAGES } from "../../controller/NavigationController";
+import { useState } from "react"
+import { useApp } from "../../context/AppContext"
+import {
+  navigateTo,
+  NAV_ITEMS,
+  PAGES,
+} from "../../controller/NavigationController"
+import { Menu, PanelTopClose, House } from "lucide-react"
 
 export default function Navbar() {
-  const { state, dispatch } = useApp();
-  const { currentPage, favorites } = state;
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const { state, dispatch } = useApp()
+  const { currentPage, favorites } = state
+  const [mobileOpen, setMobileOpen] = useState(false)
 
   const handleNav = (page) => {
-    navigateTo(dispatch, page);
-    setMobileOpen(false);
-  };
+    navigateTo(dispatch, page)
+    setMobileOpen(false)
+  }
 
   return (
-    <nav style={{ background: "rgba(255,255,255,0.95)", backdropFilter: "blur(12px)" }}
-      className="sticky top-0 z-50 border-b border-purple-100 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
+    <nav className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/85 backdrop-blur-xl">
+      <div className="page-container">
+        <div className="flex h-18 items-center justify-between py-3">
           <button
             onClick={() => handleNav(PAGES.HOME)}
-            className="flex items-center gap-2 group"
+            className="flex items-center gap-3 group"
           >
-            <div
-              className="w-8 h-8 rounded-xl flex items-center justify-center text-white text-sm font-bold shadow-md"
-              style={{ background: "linear-gradient(135deg, #534AB7, #378ADD)" }}
-            >
-              U
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-sky-600 text-white shadow-[0_12px_24px_rgba(37,99,235,0.2)]">
+              <House size={18} />
             </div>
-            <span
-              className="text-xl font-extrabold tracking-tight"
-              style={{ fontFamily: "'Syne', sans-serif", color: "#26215C" }}
-            >
-              Uni<span style={{ color: "#534AB7" }}>Lar</span>
+            <span className="font-display text-xl font-bold tracking-tight text-slate-950 sm:text-2xl">
+              Uni<span className="text-sky-600">Lar</span>
             </span>
           </button>
 
-          {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-1">
+          <div className="hidden items-center gap-2 md:flex">
             {NAV_ITEMS.map((item) => {
-              const isActive = currentPage === item.page;
-              const showBadge = item.page === PAGES.FAVORITES && favorites.length > 0;
+              const isActive = currentPage === item.page
+              const showBadge =
+                item.page === PAGES.FAVORITES && favorites.length > 0
+              const Icon = item.icon
               return (
                 <button
                   key={item.page}
                   onClick={() => handleNav(item.page)}
-                  className={`relative px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
-                    isActive
-                      ? "text-white shadow-md"
-                      : "text-gray-600 hover:text-purple-700 hover:bg-purple-50"
+                  className={`relative inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition-all duration-200 ${
+                    isActive ? "chip-active" : "chip"
                   }`}
-                  style={{
-                    fontFamily: "'DM Sans', sans-serif",
-                    background: isActive ? "linear-gradient(135deg, #534AB7, #378ADD)" : undefined,
-                  }}
                 >
-                  <span className="mr-1">{item.icon}</span>
+                  <Icon size={16} strokeWidth={2.2} />
                   {item.label}
                   {showBadge && (
-                    <span
-                      className="absolute -top-1 -right-1 w-5 h-5 rounded-full text-white text-xs flex items-center justify-center font-bold"
-                      style={{ background: "#ef4444", fontFamily: "'DM Sans', sans-serif" }}
-                    >
+                    <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-rose-500 text-[11px] font-bold text-white">
                       {favorites.length}
                     </span>
                   )}
                 </button>
-              );
+              )
             })}
           </div>
 
           {/* Mobile hamburger */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden p-2 rounded-xl text-gray-600 hover:bg-purple-50 transition-colors"
+            className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 transition-colors hover:bg-slate-50"
             aria-label="Menu"
           >
-            <div className="w-5 flex flex-col gap-1">
-              <span
-                className={`block h-0.5 bg-gray-600 transition-all duration-300 ${mobileOpen ? "rotate-45 translate-y-1.5" : ""}`}
-              />
-              <span
-                className={`block h-0.5 bg-gray-600 transition-all duration-300 ${mobileOpen ? "opacity-0" : ""}`}
-              />
-              <span
-                className={`block h-0.5 bg-gray-600 transition-all duration-300 ${mobileOpen ? "-rotate-45 -translate-y-1.5" : ""}`}
-              />
-            </div>
+            {mobileOpen ? <PanelTopClose size={18} /> : <Menu size={18} />}
           </button>
         </div>
       </div>
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div
-          className="md:hidden border-t border-purple-100 py-3 px-4"
-          style={{ background: "rgba(255,255,255,0.98)" }}
-        >
+        <div className="border-t border-slate-200/80 bg-white/95 px-4 py-3 backdrop-blur-md md:hidden">
           {NAV_ITEMS.map((item) => {
-            const isActive = currentPage === item.page;
-            const showBadge = item.page === PAGES.FAVORITES && favorites.length > 0;
+            const isActive = currentPage === item.page
+            const showBadge =
+              item.page === PAGES.FAVORITES && favorites.length > 0
+            const Icon = item.icon
             return (
               <button
                 key={item.page}
                 onClick={() => handleNav(item.page)}
-                className={`relative w-full flex items-center gap-3 px-4 py-3 rounded-xl mb-1 text-sm font-medium transition-all ${
-                  isActive
-                    ? "text-white"
-                    : "text-gray-700 hover:bg-purple-50"
+                className={`relative mb-1 flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold transition-all ${
+                  isActive ? "chip-active justify-start" : "chip justify-start"
                 }`}
-                style={{
-                  fontFamily: "'DM Sans', sans-serif",
-                  background: isActive ? "linear-gradient(135deg, #534AB7, #378ADD)" : undefined,
-                }}
               >
-                <span className="text-base">{item.icon}</span>
+                <Icon size={16} strokeWidth={2.2} />
                 {item.label}
                 {showBadge && (
-                  <span
-                    className="ml-auto w-5 h-5 rounded-full text-white text-xs flex items-center justify-center font-bold"
-                    style={{ background: "#ef4444" }}
-                  >
+                  <span className="ml-auto flex h-5 w-5 items-center justify-center rounded-full bg-rose-500 text-[11px] font-bold text-white">
                     {favorites.length}
                   </span>
                 )}
               </button>
-            );
+            )
           })}
         </div>
       )}
     </nav>
-  );
+  )
 }

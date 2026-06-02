@@ -3,73 +3,68 @@
 // Responsabilidade: página de favoritos com empty state
 // ============================================================
 
-import { useApp } from "../../context/AppContext";
-import PropertyCard from "../components/PropertyCard";
-import EmptyState from "../components/EmptyState";
-import { getFavoriteListings } from "../../controller/ListingController";
-import { navigateTo } from "../../controller/NavigationController";
+import { useApp } from "../../context/AppContext"
+import PropertyCard from "../components/PropertyCard"
+import EmptyState from "../components/EmptyState"
+import { getFavoriteListings } from "../../controller/ListingController"
+import { navigateTo } from "../../controller/NavigationController"
+import { Heart, Sparkles } from "lucide-react"
 
 export default function FavoritesPage() {
-  const { state, dispatch } = useApp();
-  const { listings, favorites } = state;
+  const { state, dispatch } = useApp()
+  const { listings, favorites } = state
 
-  const favListings = getFavoriteListings(listings, favorites);
+  const favListings = getFavoriteListings(listings, favorites)
 
   return (
-    <div className="min-h-screen px-4 py-10" style={{ background: "#F7F6FF" }}>
-      <div className="max-w-7xl mx-auto">
-
-        {/* Header */}
-        <div className="mb-8">
-          <h1
-            className="text-2xl sm:text-3xl font-extrabold mb-2"
-            style={{ fontFamily: "'Syne', sans-serif", color: "#26215C" }}
-          >
-            ❤️ Meus Favoritos
+    <div className="page-container space-y-6 py-8 sm:py-12">
+      <section className="section-card p-6 sm:p-8">
+        <span className="pill w-fit bg-sky-50 text-sky-700">
+          <Heart size={14} className="fill-sky-600 text-sky-600" />
+          Curadoria pessoal
+        </span>
+        <div className="mt-4">
+          <h1 className="font-display text-3xl font-bold text-slate-950 sm:text-4xl">
+            Meus favoritos
           </h1>
-          <p className="text-sm text-gray-500" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-            {favListings.length} imóve{favListings.length !== 1 ? "is" : "l"} salvo
-            {favListings.length !== 1 ? "s" : ""}
+          <p className="mt-2 text-sm text-slate-600">
+            {favListings.length} imóve{favListings.length !== 1 ? "is" : "l"}{" "}
+            salvo{favListings.length !== 1 ? "s" : ""}
           </p>
         </div>
+      </section>
 
-        {favListings.length > 0 ? (
-          <>
-            {/* Info banner */}
-            <div
-              className="flex items-center gap-3 p-4 rounded-2xl mb-8 text-sm"
-              style={{
-                background: "linear-gradient(135deg, #534AB715, #378ADD10)",
-                border: "1px solid #534AB730",
-                fontFamily: "'DM Sans', sans-serif",
-                color: "#534AB7",
-              }}
-            >
-              <span className="text-xl">💡</span>
-              <p>
-                Seus favoritos são salvos automaticamente no dispositivo.
-                Toque no ❤️ para remover.
-              </p>
+      {favListings.length > 0 ? (
+        <>
+          <div className="surface flex items-start gap-3 px-4 py-4 text-sm text-slate-600">
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-sky-50 text-sky-700">
+              <Sparkles size={16} />
             </div>
+            <p className="leading-6">
+              Seus favoritos são salvos automaticamente no dispositivo. Toque no
+              coração para remover.
+            </p>
+          </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-              {favListings.map((listing) => (
-                <PropertyCard key={listing.id} listing={listing} />
-              ))}
-            </div>
-          </>
-        ) : (
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
+            {favListings.map((listing) => (
+              <PropertyCard key={listing.id} listing={listing} />
+            ))}
+          </div>
+        </>
+      ) : (
+        <section className="section-card">
           <EmptyState
-            icon="💔"
+            icon={Heart}
             title="Nenhum favorito ainda"
-            description="Explore os imóveis disponíveis e adicione os que mais gostou aos favoritos tocando no ❤️."
+            description="Explore os imóveis disponíveis e salve os que mais gostar para comparar depois."
             action={{
               label: "Explorar imóveis",
               onClick: () => navigateTo(dispatch, "listings"),
             }}
           />
-        )}
-      </div>
+        </section>
+      )}
     </div>
-  );
+  )
 }

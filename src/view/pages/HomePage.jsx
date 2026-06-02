@@ -12,8 +12,6 @@ import { navigateTo } from "../../controller/NavigationController"
 import { LISTING_TYPES } from "../../model/ListingModel"
 import {
   ArrowRight,
-  BadgeInfo,
-  Building2,
   MapPinned,
   Search,
   Sparkles,
@@ -107,7 +105,7 @@ export default function HomePage() {
   return (
     <div className="page-container space-y-10 py-10 sm:py-16">
       <section className="hero-panel p-8 sm:p-12 lg:p-14 animate-slide-up">
-        <div className="relative z-10 grid items-center gap-12 lg:grid-cols-[1.2fr_0.8fr]">
+        <div className="relative z-10 grid items-center gap-12 lg:grid-cols-1">
           <div className="space-y-6">
             <span className="pill w-fit bg-white/90 text-sky-700">
               <Sparkles size={14} />A plataforma para moradia universitária
@@ -181,54 +179,6 @@ export default function HomePage() {
                   {city.name}
                 </button>
               ))}
-            </div>
-          </div>
-
-          <div className="relative">
-            <div className="surface-strong p-5 sm:p-6">
-              <div className="flex items-center justify-between gap-4 border-b border-slate-200/70 pb-4">
-                <div>
-                  <p className="text-sm font-medium text-slate-500">
-                    Resumo rápido
-                  </p>
-                  <h2 className="font-display text-2xl font-bold text-slate-950">
-                    Busca inteligente
-                  </h2>
-                </div>
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-50 text-sky-700">
-                  <Building2 size={22} />
-                </div>
-              </div>
-
-              <div className="mt-5 grid gap-3">
-                <div className="rounded-2xl border border-slate-200 bg-slate-50/80 p-4">
-                  <p className="text-sm font-medium text-slate-500">
-                    Imóveis ativos
-                  </p>
-                  <p className="mt-1 text-3xl font-bold tracking-tight text-slate-950">
-                    {state.listings.length}
-                  </p>
-                </div>
-                <div className="rounded-2xl border border-slate-200 bg-slate-50/80 p-4">
-                  <p className="text-sm font-medium text-slate-500">
-                    Favoritos salvos
-                  </p>
-                  <p className="mt-1 text-3xl font-bold tracking-tight text-slate-950">
-                    {state.favorites.length}
-                  </p>
-                </div>
-              </div>
-
-              <div className="mt-5 rounded-2xl border border-sky-100 bg-sky-50/70 p-4 text-sm text-slate-600">
-                <div className="flex items-center gap-2 font-semibold text-sky-700">
-                  <BadgeInfo size={16} />
-                  Interface minimalista
-                </div>
-                <p className="mt-2 leading-6">
-                  Espaço, contraste e foco no que importa: encontrar, comparar e
-                  decidir.
-                </p>
-              </div>
             </div>
           </div>
         </div>

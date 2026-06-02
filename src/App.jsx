@@ -32,8 +32,11 @@ function Router() {
 function AppInner() {
   return (
     <div className="app-shell font-body text-slate-900">
+      <a href="#main" className="skip-link">
+        Ir para o conteúdo
+      </a>
       <Navbar />
-      <main className="pb-8">
+      <main id="main" className="pb-8">
         <Router />
       </main>
       <PropertyModal />

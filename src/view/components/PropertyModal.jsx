@@ -24,10 +24,14 @@ export default function PropertyModal() {
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/55 px-4 backdrop-blur-sm"
       onClick={() => closeListingModal(dispatch)}
+      role="presentation"
     >
       <div
         className="surface-strong relative w-full max-w-2xl overflow-hidden"
         onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
       >
         <div className="flex items-start justify-between gap-4 border-b border-slate-200/70 p-6">
           <div className="space-y-2">
@@ -35,7 +39,10 @@ export default function PropertyModal() {
               <Sparkles size={14} />
               Detalhes do imóvel
             </span>
-            <h2 className="font-display text-3xl font-bold text-slate-950">
+            <h2
+              id="modal-title"
+              className="font-display text-3xl font-bold text-slate-950"
+            >
               {listing.title}
             </h2>
             <p className="flex items-center gap-1.5 text-sm text-slate-500">

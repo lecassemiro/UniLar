@@ -17,21 +17,15 @@ import {
   Ruler,
   ArrowRight,
   Sparkles,
-  House,
-  Building2,
-  Home,
 } from "lucide-react"
+import example1 from "../../assets/example_1.png"
+import example2 from "../../assets/example_2.png"
+import example3 from "../../assets/example_3.png"
+import example4 from "../../assets/example_4.png"
 
 const BADGE_STYLES = {
   hot: { label: "Em alta" },
   new: { label: "Novo" },
-}
-
-const TYPE_ICONS = {
-  kitnet: House,
-  quarto: BedDouble,
-  apartamento: Building2,
-  casa: Home,
 }
 
 const TYPE_ACCENTS = {
@@ -39,6 +33,13 @@ const TYPE_ACCENTS = {
   quarto: "from-blue-50 to-blue-100",
   apartamento: "from-indigo-50 to-indigo-100",
   casa: "from-cyan-50 to-cyan-100",
+}
+
+const TYPE_IMAGES = {
+  kitnet: example1,
+  quarto: example2,
+  apartamento: example3,
+  casa: example4,
 }
 
 export default function PropertyCard({ listing }) {
@@ -49,8 +50,8 @@ export default function PropertyCard({ listing }) {
 
   const { state, dispatch } = useApp()
   const isFav = state.favorites.includes(listing.id)
-  const TypeIcon = TYPE_ICONS[listing.type] || House
   const badge = BADGE_STYLES[listing.badge]
+  const listingImage = TYPE_IMAGES[listing.type]
 
   const handleFavorite = (e) => {
     e.stopPropagation()
@@ -62,16 +63,32 @@ export default function PropertyCard({ listing }) {
   }
 
   return (
-    <div
+    <article
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault()
+          handleOpen()
+        }
+      }}
       onClick={handleOpen}
+      aria-label={`Abrir detalhes de ${listing.title}`}
       className="card-hover section-card overflow-hidden cursor-pointer"
     >
       <div
-        className={`relative flex h-44 items-center justify-center bg-gradient-to-br ${TYPE_ACCENTS[listing.type] || "from-sky-50 to-sky-100"}`}
+        className={`relative h-44 overflow-hidden bg-gradient-to-br ${TYPE_ACCENTS[listing.type] || "from-sky-50 to-sky-100"}`}
       >
-        <div className="flex h-20 w-20 items-center justify-center rounded-[1.5rem] border border-white/70 bg-white/90 text-sky-700 shadow-sm">
-          <TypeIcon size={34} strokeWidth={1.8} />
-        </div>
+        {listingImage ? (
+          <img
+            src={listingImage}
+            alt={`Foto ilustrativa de ${listing.type}`}
+            loading="lazy"
+            className="h-full w-full object-cover"
+          />
+        ) : null}
+
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/22 via-transparent to-transparent" />
 
         {badge && (
           <span className="absolute left-3 top-3 pill px-3 py-1 text-xs font-semibold text-slate-700">
@@ -81,8 +98,9 @@ export default function PropertyCard({ listing }) {
         )}
 
         <button
+          type="button"
           onClick={handleFavorite}
-          className="absolute right-3 top-3 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/60 bg-white/90 text-slate-700 shadow-sm transition-all hover:scale-105"
+          className="absolute right-3 top-3 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/60 bg-white/90 text-slate-700 shadow-sm transition-all hover:scale-105 focus-ring"
           aria-label={
             isFav ? "Remover dos favoritos" : "Adicionar aos favoritos"
           }
@@ -138,7 +156,8 @@ export default function PropertyCard({ listing }) {
           </div>
 
           <button
-            className="button-secondary px-4 py-2 text-sm"
+            type="button"
+            className="button-secondary px-4 py-2 text-sm focus-ring"
             onClick={handleOpen}
           >
             Ver mais
@@ -146,6 +165,6 @@ export default function PropertyCard({ listing }) {
           </button>
         </div>
       </div>
-    </div>
+    </article>
   )
 }

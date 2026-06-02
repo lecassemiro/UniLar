@@ -58,8 +58,14 @@ export default function RegisterPage() {
 
   const Input = ({ field, label, type = "text", placeholder }) => (
     <div className="space-y-2">
-      <label className="text-sm font-semibold text-slate-700">{label}</label>
+      <label
+        htmlFor={`${field}-input`}
+        className="text-sm font-semibold text-slate-700"
+      >
+        {label}
+      </label>
       <input
+        id={`${field}-input`}
         type={type}
         value={form[field]}
         onChange={(e) => handleChange(field, e.target.value)}
@@ -146,6 +152,7 @@ export default function RegisterPage() {
                 Tipo do imóvel
               </label>
               <select
+                id="type-input"
                 value={form.type}
                 onChange={(e) => handleChange("type", e.target.value)}
                 className="input-shell"
@@ -199,6 +206,7 @@ export default function RegisterPage() {
                 Descrição
               </label>
               <textarea
+                id="desc-input"
                 rows={5}
                 value={form.desc}
                 onChange={(e) => handleChange("desc", e.target.value)}
@@ -215,6 +223,7 @@ export default function RegisterPage() {
                 Comodidades
               </label>
               <input
+                id="amenities-input"
                 value={form.amenities}
                 onChange={(e) => handleChange("amenities", e.target.value)}
                 placeholder="Wi-Fi, Mobiliado, Garagem..."
@@ -228,7 +237,11 @@ export default function RegisterPage() {
               placeholder="(11) 99999-9999"
             />
 
-            <button onClick={handleSubmit} className="button-primary w-full">
+            <button
+              type="button"
+              onClick={handleSubmit}
+              className="button-primary w-full focus-ring"
+            >
               <Send size={16} />
               Publicar anúncio
             </button>

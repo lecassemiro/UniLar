@@ -34,8 +34,6 @@ export function navigateToListings(dispatch, filters = {}) {
 
 export const NAV_ITEMS = [
   { page: PAGES.HOME, label: "Início", icon: House },
-  { page: PAGES.LISTINGS, label: "Imóveis", icon: Search },
   { page: PAGES.FAVORITES, label: "Favoritos", icon: Heart },
-  { page: PAGES.REGISTER, label: "Anunciar", icon: PlusCircle },
   { page: PAGES.PROFILE, label: "Perfil", icon: UserRound },
 ]

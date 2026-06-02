@@ -340,3 +340,28 @@ body::before {
   box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.08);
   border-color: rgba(37, 99, 235, 0.28);
 }
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -40px;
+  background: var(--primary);
+  color: white;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  z-index: 60;
+  transition: top 0.18s ease;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* Respect user preference for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-slide-up,
+  .animate-fade-in {
+    animation: none !important;
+    transition: none !important;
+  }
+}

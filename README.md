@@ -246,12 +246,6 @@ Durante o desenvolvimento foram aplicados conceitos importantes de engenharia de
 
 ---
 
-## 👨‍💻 Minha Participação
-
-Responsável pelo desenvolvimento da aplicação utilizando React, aplicando arquitetura MVC, gerenciamento de estado global e construção da interface focada em experiência do usuário.
-
----
-
 ## 📄 Licença
 
 Projeto desenvolvido para fins acadêmicos e demonstração de habilidades técnicas.

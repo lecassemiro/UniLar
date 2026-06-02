@@ -325,3 +325,18 @@ body::before {
     opacity: 1;
   }
 }
+
+/* Utility animation helpers */
+.animate-slide-up {
+  animation: slideUp 520ms cubic-bezier(0.16, 0.8, 0.24, 1) both;
+}
+
+.animate-fade-in {
+  animation: fadeIn 420ms ease both;
+}
+
+.focus-ring:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.08);
+  border-color: rgba(37, 99, 235, 0.28);
+}

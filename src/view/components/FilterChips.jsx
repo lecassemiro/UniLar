@@ -34,7 +34,8 @@ export default function FilterChips() {
             <button
               key={t.value}
               onClick={() => setFilter(dispatch, "type", t.value)}
-              className={isActive ? "chip-active" : "chip"}
+              className={`chip ${isActive ? "chip-active" : ""}`}
+              aria-pressed={isActive}
             >
               {t.label}
             </button>
@@ -53,7 +54,8 @@ export default function FilterChips() {
             <button
               key={s.value}
               onClick={() => setSortOrder(dispatch, s.value)}
-              className={isActive ? "chip-active" : "chip"}
+              className={`chip ${isActive ? "chip-active" : ""}`}
+              aria-pressed={isActive}
             >
               {s.label}
             </button>

@@ -105,9 +105,9 @@ export default function HomePage() {
   const featuredListings = state.listings.slice(0, 4)
 
   return (
-    <div className="page-container space-y-8 py-8 sm:py-12">
-      <section className="hero-panel p-6 sm:p-10 lg:p-12">
-        <div className="relative z-10 grid items-center gap-10 lg:grid-cols-[1.2fr_0.8fr]">
+    <div className="page-container space-y-10 py-10 sm:py-16">
+      <section className="hero-panel p-8 sm:p-12 lg:p-14 animate-slide-up">
+        <div className="relative z-10 grid items-center gap-12 lg:grid-cols-[1.2fr_0.8fr]">
           <div className="space-y-6">
             <span className="pill w-fit bg-white/90 text-sky-700">
               <Sparkles size={14} />A plataforma para moradia universitária
@@ -115,7 +115,9 @@ export default function HomePage() {
 
             <div className="space-y-4">
               <h1 className="font-display text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
-                Encontre moradia perto do campus com um design limpo e direto.
+                Encontre moradia{" "}
+                <span className="text-sky-700">perto do campus</span> com um
+                design limpo e direto.
               </h1>
               <p className="max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
                 Quartos, kitnets, apartamentos e casas reunidos em uma
@@ -123,8 +125,8 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="surface p-3 sm:p-4">
-              <div className="grid gap-3 lg:grid-cols-[1.4fr_0.9fr_0.6fr_auto]">
+            <div className="surface p-4 sm:p-6">
+              <div className="grid gap-4 lg:grid-cols-[1.4fr_0.9fr_0.6fr_auto]">
                 <input
                   type="text"
                   placeholder="Cidade ou bairro"
@@ -162,7 +164,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-3">
               {FEATURED_CITIES.map((city) => (
                 <button
                   key={city.name}
@@ -232,7 +234,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="grid gap-4 sm:grid-cols-3">
+      <section className="grid gap-6 sm:grid-cols-3 animate-fade-in">
         {[
           {
             count: count1,
@@ -269,7 +271,7 @@ export default function HomePage() {
         })}
       </section>
 
-      <section className="space-y-5">
+      <section className="space-y-6 animate-fade-in">
         <div className="flex items-end justify-between gap-4">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-700">
@@ -288,7 +290,7 @@ export default function HomePage() {
           </button>
         </div>
 
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
           {featuredListings.map((listing) => (
             <PropertyCard key={listing.id} listing={listing} />
           ))}
@@ -305,7 +307,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="space-y-5">
+      <section className="space-y-6 animate-fade-in">
         <div className="text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-700">
             Como funciona
@@ -315,7 +317,7 @@ export default function HomePage() {
           </h2>
         </div>
 
-        <div className="grid gap-4 lg:grid-cols-4">
+        <div className="grid gap-6 lg:grid-cols-4">
           {HOW_IT_WORKS.map((item) => {
             const Icon = item.icon
             return (
@@ -340,8 +342,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section-card overflow-hidden p-6 sm:p-8">
-        <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
+      <section className="section-card overflow-hidden p-8 sm:p-10 animate-fade-in">
+        <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-700">
               Anuncie também

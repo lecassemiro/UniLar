@@ -83,7 +83,8 @@ export default function ListingsPage() {
                     payload: { key: "maxPrice", value: String(val) },
                   })
                 }
-                className={isActive ? "chip-active" : "chip"}
+                className={`chip ${isActive ? "chip-active" : ""}`}
+                aria-pressed={isActive}
               >
                 {val === "" ? "Todos" : `R$ ${val}`}
               </button>

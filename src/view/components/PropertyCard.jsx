@@ -142,22 +142,21 @@ export default function PropertyCard({ listing }) {
           </span>
         </div>
 
-        <div className="flex items-end justify-between gap-3 border-t border-slate-200/70 pt-4">
-          <div>
+        <div className="border-t border-slate-200/70 pt-4">
+          <div className="min-w-0">
             <p className="text-xs font-medium uppercase tracking-[0.18em] text-slate-500">
               Valor mensal
             </p>
-            <div className="mt-1 font-display text-2xl font-bold text-slate-950">
-              R$ {listing.price.toLocaleString("pt-BR")}
-              <span className="ml-1 text-sm font-medium text-slate-500">
-                /mês
-              </span>
+            <div className="mt-1 flex items-baseline gap-1 whitespace-nowrap font-display text-2xl font-bold text-slate-950">
+              <span>R$</span>
+              <span>{listing.price.toLocaleString("pt-BR")}</span>
+              <span className="text-sm font-medium text-slate-500">/mês</span>
             </div>
           </div>
 
           <button
             type="button"
-            className="button-secondary px-4 py-2 text-sm focus-ring"
+            className="button-secondary mt-4 w-full justify-center whitespace-nowrap px-3.5 py-2 text-sm focus-ring"
             onClick={handleOpen}
           >
             Ver mais

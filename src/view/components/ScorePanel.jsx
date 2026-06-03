@@ -5,6 +5,7 @@
 // ============================================================
 
 import { useMemo } from "react"
+import * as Icons from "lucide-react"
 import { getScore, getPilarBarColor } from "../../controller/ScoreController"
 
 export default function ScorePanel({ listing }) {
@@ -15,15 +16,18 @@ export default function ScorePanel({ listing }) {
 
   // Cor do número principal
   const scoreColor =
-    score.total >= 85 ? "text-emerald-600" :
-    score.total >= 70 ? "text-sky-600"     :
-    score.total >= 55 ? "text-amber-500"   :
-    score.total >= 40 ? "text-orange-500"  :
-                        "text-red-500"
+    score.total >= 85
+      ? "text-emerald-600"
+      : score.total >= 70
+        ? "text-sky-600"
+        : score.total >= 55
+          ? "text-amber-500"
+          : score.total >= 40
+            ? "text-orange-500"
+            : "text-red-500"
 
   return (
     <div className="section-card-soft p-5 space-y-4">
-
       {/* Título + número */}
       <div className="flex items-center justify-between">
         <div>
@@ -31,13 +35,17 @@ export default function ScorePanel({ listing }) {
             Score Universitário
           </p>
           <div className="flex items-end gap-1 mt-0.5">
-            <span className={`font-display text-4xl font-extrabold leading-none ${scoreColor}`}>
+            <span
+              className={`font-display text-4xl font-extrabold leading-none ${scoreColor}`}
+            >
               {score.total}
             </span>
             <span className="text-slate-400 text-sm mb-0.5">/100</span>
           </div>
         </div>
-        <span className="text-xs font-bold px-3 py-1 rounded-full bg-slate-100 text-slate-600">
+        <span
+          className={`text-xs font-bold px-3 py-1 rounded-full ${score.color} ${score.textColor}`}
+        >
           {score.label}
         </span>
       </div>
@@ -47,8 +55,14 @@ export default function ScorePanel({ listing }) {
         {pilares.map((p) => (
           <div key={p.nome}>
             <div className="flex justify-between items-center mb-1">
-              <span className="text-xs text-slate-500">
-                {p.icone} {p.nome}
+              <span className="text-xs text-slate-500 flex items-center gap-2">
+                {(() => {
+                  const Icon = Icons[p.icone]
+                  return Icon ? (
+                    <Icon size={14} className="text-slate-400" />
+                  ) : null
+                })()}
+                {p.nome}
               </span>
               <span className="text-xs font-semibold text-slate-700 tabular-nums">
                 {p.score}
@@ -65,10 +79,31 @@ export default function ScorePanel({ listing }) {
       </div>
 
       {/* Insight — apenas uma linha */}
-      <p className="text-xs text-slate-500 leading-relaxed border-t border-slate-100 pt-3">
-        {score.insight}
-      </p>
+      <p className="text-xs text-slate-500 leading-relaxed border-t border-slate-100 pt-3 flex items-center gap-2">
+        {(() => {
+          const insight = score.insight || {}
+          const InsightIcon = insight.icon ? Icons[insight.icon] : null
+          const iconColorMap = {
+            AlertTriangle: "text-amber-500",
+            CheckCircle: "text-emerald-500",
+            Lightbulb: "text-amber-500",
+            Clock: "text-slate-500",
+          }
+          const iconColor = iconColorMap[insight.icon] ?? "text-slate-500"
 
+          return (
+            <>
+              {InsightIcon ? (
+                <InsightIcon
+                  size={20}
+                  className={`flex-shrink-0 ${iconColor}`}
+                />
+              ) : null}
+              <span>{insight.text}</span>
+            </>
+          )
+        })()}
+      </p>
     </div>
   )
 }

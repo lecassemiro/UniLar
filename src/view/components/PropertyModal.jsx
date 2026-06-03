@@ -28,7 +28,7 @@ export default function PropertyModal() {
       role="presentation"
     >
       <div
-        className="surface-strong relative w-full max-w-2xl overflow-hidden"
+        className="surface-strong relative w-full max-w-2xl max-h-[calc(100vh-4rem)] overflow-hidden flex flex-col"
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
@@ -61,7 +61,7 @@ export default function PropertyModal() {
           </button>
         </div>
 
-        <div className="grid gap-6 p-6 lg:grid-cols-[1fr_0.9fr]">
+        <div className="grid gap-6 p-6 lg:grid-cols-[1fr_0.9fr] overflow-auto flex-1 min-h-0">
           <div className="space-y-5">
             <div className="rounded-3xl border border-sky-100 bg-sky-50/70 p-5">
               <div className="flex items-end justify-between gap-4">

@@ -1,5 +1,6 @@
 import { useApp } from "../../context/AppContext"
 import { closeListingModal } from "../../controller/ListingController"
+import ScorePanel from "./ScorePanel"
 import {
   X,
   MapPin,
@@ -92,6 +93,9 @@ export default function PropertyModal() {
                 </span>
               </div>
             </div>
+
+            {/* Score de Vida Universitária */}
+            <ScorePanel listing={listing} />
 
             <p className="text-sm leading-7 text-slate-600">{listing.desc}</p>
 

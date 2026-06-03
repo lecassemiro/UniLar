@@ -94,9 +94,6 @@ export default function PropertyModal() {
               </div>
             </div>
 
-            {/* Score de Vida Universitária */}
-            <ScorePanel listing={listing} />
-
             <p className="text-sm leading-7 text-slate-600">{listing.desc}</p>
 
             <div className="section-card-soft p-5">
@@ -114,6 +111,9 @@ export default function PropertyModal() {
           </div>
 
           <div className="space-y-4">
+            {/* Score de Vida Universitária */}
+            <ScorePanel listing={listing} />
+
             <div className="section-card-soft p-5">
               <p className="text-sm font-medium text-slate-500">Contato</p>
               <a

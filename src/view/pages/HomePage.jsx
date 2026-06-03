@@ -108,7 +108,7 @@ export default function HomePage() {
         <div className="relative z-10 grid items-center gap-12 lg:grid-cols-1">
           <div className="space-y-6">
             <span className="pill w-fit bg-white/90 text-sky-700">
-              <Sparkles size={14} />A plataforma para moradia universitária
+              <Sparkles size={14} />a plataforma para moradia universitária
             </span>
 
             <div className="space-y-4">
